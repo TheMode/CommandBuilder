@@ -144,11 +144,6 @@ public class ArgumentStructure extends Argument<Structure> {
     }
 
     @Override
-    public int getConditionResult(Structure value) {
-        return SUCCESS;
-    }
-
-    @Override
     public Structure parse(String value) {
 
         Structure struct = new Structure();
@@ -224,6 +219,11 @@ public class ArgumentStructure extends Argument<Structure> {
         }
 
         return struct;
+    }
+
+    @Override
+    public int getConditionResult(Structure value) {
+        return SUCCESS;
     }
 
     private boolean isValueValid(Argument argument, String argValue) {

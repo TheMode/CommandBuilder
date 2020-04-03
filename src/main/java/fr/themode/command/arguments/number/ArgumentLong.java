@@ -19,17 +19,17 @@ public class ArgumentLong extends ArgumentNumber<Long> {
     }
 
     @Override
+    public Long parse(String value) {
+        return Long.parseLong(parseValue(value), getRadix(value));
+    }
+
+    @Override
     public int getConditionResult(Long value) {
         // Check range
         if (value < this.min || value > this.max)
             return RANGE_ERROR;
 
         return SUCCESS;
-    }
-
-    @Override
-    public Long parse(String value) {
-        return Long.parseLong(parseValue(value), getRadix(value));
     }
 
 }

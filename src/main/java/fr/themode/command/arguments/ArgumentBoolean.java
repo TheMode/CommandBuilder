@@ -15,12 +15,13 @@ public class ArgumentBoolean extends Argument<Boolean> {
     }
 
     @Override
+    public Boolean parse(String value) {
+        return Boolean.valueOf(value);
+    }
+
+    @Override
     public int getConditionResult(Boolean value) {
         return SUCCESS;
     }
 
-    @Override
-    public Boolean parse(String value) {
-        return Boolean.valueOf(value);
-    }
 }

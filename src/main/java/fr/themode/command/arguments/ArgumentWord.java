@@ -25,6 +25,11 @@ public class ArgumentWord extends Argument<String> {
     }
 
     @Override
+    public String parse(String value) {
+        return value;
+    }
+
+    @Override
     public int getConditionResult(String value) {
 
         // Check restrictions
@@ -39,10 +44,5 @@ public class ArgumentWord extends Argument<String> {
         }
 
         return UNDEFINED_ERROR;
-    }
-
-    @Override
-    public String parse(String value) {
-        return value;
     }
 }

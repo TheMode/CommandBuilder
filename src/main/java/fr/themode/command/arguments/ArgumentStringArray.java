@@ -15,12 +15,12 @@ public class ArgumentStringArray extends Argument<String[]> {
     }
 
     @Override
-    public int getConditionResult(String[] value) {
-        return SUCCESS;
+    public String[] parse(String value) {
+        return value.split(Pattern.quote(" "));
     }
 
     @Override
-    public String[] parse(String value) {
-        return value.split(Pattern.quote(" "));
+    public int getConditionResult(String[] value) {
+        return SUCCESS;
     }
 }

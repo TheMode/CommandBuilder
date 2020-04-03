@@ -25,15 +25,6 @@ public class ArgumentFloat extends ArgumentNumber<Float> {
     }
 
     @Override
-    public int getConditionResult(Float value) {
-        // Check range
-        if (value < this.min || value > this.max)
-            return RANGE_ERROR;
-
-        return SUCCESS;
-    }
-
-    @Override
     public Float parse(String value) {
         String parsed = parseValue(value);
         int radix = getRadix(value);
@@ -41,6 +32,15 @@ public class ArgumentFloat extends ArgumentNumber<Float> {
             return (float) Integer.parseInt(parsed, radix);
         }
         return Float.parseFloat(parsed);
+    }
+
+    @Override
+    public int getConditionResult(Float value) {
+        // Check range
+        if (value < this.min || value > this.max)
+            return RANGE_ERROR;
+
+        return SUCCESS;
     }
 
 }

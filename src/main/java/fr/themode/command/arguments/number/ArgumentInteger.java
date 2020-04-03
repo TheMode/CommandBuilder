@@ -19,17 +19,17 @@ public class ArgumentInteger extends ArgumentNumber<Integer> {
     }
 
     @Override
+    public Integer parse(String value) {
+        return Integer.parseInt(parseValue(value), getRadix(value));
+    }
+
+    @Override
     public int getConditionResult(Integer value) {
         // Check range
         if (value < this.min || value > this.max)
             return RANGE_ERROR;
 
         return SUCCESS;
-    }
-
-    @Override
-    public Integer parse(String value) {
-        return Integer.parseInt(parseValue(value), getRadix(value));
     }
 
 }

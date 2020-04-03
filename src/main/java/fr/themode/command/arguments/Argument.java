@@ -23,6 +23,31 @@ public abstract class Argument<T> {
         this(id, allowSpace, false);
     }
 
+    /**
+     * Used to provide the appropriate error concerning the args received
+     *
+     * @param value The received argument
+     * @return The success/error code
+     */
+    public abstract int getCorrectionResult(String value);
+
+    /**
+     * The argument syntax is correct, parsed here to the correct type
+     *
+     * @param value The correct argument
+     * @return The parsed argument
+     */
+    public abstract T parse(String value);
+
+    /**
+     * Argument is at least partially correct (the syntax is good and the argument has been parsed)
+     * but some other conditions could take place (ex: min/max requirement for numbers)
+     *
+     * @param value The parsed argument
+     * @return The success/error code
+     */
+    public abstract int getConditionResult(T value);
+
     public String getId() {
         return id;
     }
@@ -46,11 +71,5 @@ public abstract class Argument<T> {
     public boolean hasErrorCallback() {
         return callback != null;
     }
-
-    public abstract int getCorrectionResult(String value);
-
-    public abstract int getConditionResult(T value);
-
-    public abstract T parse(String value);
 
 }

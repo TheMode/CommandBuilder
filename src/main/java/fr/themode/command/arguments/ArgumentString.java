@@ -34,11 +34,6 @@ public class ArgumentString extends Argument<String> {
     }
 
     @Override
-    public int getConditionResult(String value) {
-        return SUCCESS;
-    }
-
-    @Override
     public String parse(String value) {
         // Remove first and last characters (quote)
         value = value.substring(1, value.length() - 1);
@@ -47,5 +42,10 @@ public class ArgumentString extends Argument<String> {
         value = value.replace("\\", "");
 
         return value;
+    }
+
+    @Override
+    public int getConditionResult(String value) {
+        return SUCCESS;
     }
 }

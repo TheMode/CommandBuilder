@@ -25,15 +25,6 @@ public class ArgumentDouble extends ArgumentNumber<Double> {
     }
 
     @Override
-    public int getConditionResult(Double value) {
-        // Check range
-        if (value < this.min || value > this.max)
-            return RANGE_ERROR;
-
-        return SUCCESS;
-    }
-
-    @Override
     public Double parse(String value) {
         String parsed = parseValue(value);
         int radix = getRadix(value);
@@ -41,6 +32,15 @@ public class ArgumentDouble extends ArgumentNumber<Double> {
             return (double) Long.parseLong(parsed, radix);
         }
         return Double.parseDouble(parsed);
+    }
+
+    @Override
+    public int getConditionResult(Double value) {
+        // Check range
+        if (value < this.min || value > this.max)
+            return RANGE_ERROR;
+
+        return SUCCESS;
     }
 
 }
