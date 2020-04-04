@@ -44,6 +44,10 @@ public class CommandDispatcher<S> {
         result.execute(source);
     }
 
+    public Collection<Command<S>> getCommands() {
+        return Collections.unmodifiableCollection(commandMap.values());
+    }
+
     private Command<S> findCommand(String commandName) {
         return commandMap.containsKey(commandName) ? commandMap.get(commandName) : null;
     }
