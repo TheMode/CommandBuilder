@@ -8,17 +8,15 @@ import java.util.regex.Pattern;
 
 public class CommandDispatcher<S> {
 
-    private Map<String, Command<S>> commandMap;
-
-    public CommandDispatcher() {
-        this.commandMap = new HashMap<>();
-    }
+    private Map<String, Command<S>> commandMap = new HashMap<>();
+    private Set<Command<S>> commands = new HashSet<>();
 
     public void register(Command<S> command) {
         this.commandMap.put(command.getName(), command);
         for (String alias : command.getAliases()) {
             this.commandMap.put(alias, command);
         }
+        this.commands.add(command);
     }
 
     public CommandResult parse(String commandString) {
@@ -44,8 +42,8 @@ public class CommandDispatcher<S> {
         result.execute(source);
     }
 
-    public Collection<Command<S>> getCommands() {
-        return Collections.unmodifiableCollection(commandMap.values());
+    public Set<Command<S>> getCommands() {
+        return Collections.unmodifiableSet(commands);
     }
 
     private Command<S> findCommand(String commandName) {
