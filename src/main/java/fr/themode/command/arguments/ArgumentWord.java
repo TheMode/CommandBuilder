@@ -43,6 +43,6 @@ public class ArgumentWord extends Argument<String> {
                 return RESTRICTION_ERROR;
         }
 
-        return UNDEFINED_ERROR;
+        return SUCCESS;
     }
 }
