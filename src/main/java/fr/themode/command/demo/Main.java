@@ -2,6 +2,7 @@ package fr.themode.command.demo;
 
 import fr.themode.command.CommandDispatcher;
 import fr.themode.command.demo.commands.CommandHealth;
+import fr.themode.command.demo.commands.CommandMessage;
 
 public class Main {
 
@@ -10,8 +11,9 @@ public class Main {
 
         CommandDispatcher<Player> dispatcher = new CommandDispatcher<>();
         dispatcher.register(new CommandHealth());
+        dispatcher.register(new CommandMessage());
 
-        dispatcher.execute(player, "health set 50");
+        dispatcher.execute(player, "msg 1 je suis un string");
 
         /*Scanner sc = new Scanner(System.in);
         while (true) {

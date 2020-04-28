@@ -6,7 +6,6 @@ public class ArgumentStringArray extends Argument<String[]> {
 
     public ArgumentStringArray(String id) {
         super(id, true, true);
-
     }
 
     @Override

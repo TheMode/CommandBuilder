@@ -79,14 +79,16 @@ public class CommandDispatcher<S> {
             boolean syntaxCorrect = true;
             int argIndex = 0;
 
+            boolean useRemaining = false;
             for (int argCount = 0; argCount < syntax.getArguments().length; argCount++) {
                 Argument argument = syntax.getArguments()[argCount];
+                useRemaining = argument.useRemaining();
 
                 int correctionResult = Argument.SUCCESS;
                 boolean correct = false;
                 String argValue = "";
 
-                if (argument.useRemaining()) {
+                if (useRemaining) {
                     for (int i = argIndex; i < args.length; i++) {
                         String arg = args[i];
                         if (argValue.length() > 0)
@@ -120,7 +122,6 @@ public class CommandDispatcher<S> {
                 }
 
                 if (correct) {
-                    //System.out.println("CORRECT ARG: " + argValue);
                     continue;
                 } else {
                     syntaxCorrect = false;
@@ -133,9 +134,8 @@ public class CommandDispatcher<S> {
                     break;
                 }
             }
-
             if (syntaxCorrect) {
-                if (args.length == argIndex) {
+                if (args.length == argIndex || useRemaining) {
                     validSyntaxes.add(syntax);
                     syntaxesValues.put(syntax, argsValues);
                 }
