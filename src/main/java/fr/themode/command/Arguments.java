@@ -1,6 +1,7 @@
 package fr.themode.command;
 
 import fr.themode.command.structure.Structure;
+import fr.themode.command.coordinate.Coordinate; 
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,10 @@ public class Arguments {
 
     public String[] getStringArray(String id) {
         return (String[]) getObject(id);
+    }
+
+    public Coordinate getCoordinate( String id ) {
+        return (Coordinate)  getObject(id); 
     }
 
     public Object getObject(String id) {

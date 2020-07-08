@@ -39,6 +39,10 @@ public class ArgumentType {
         return new ArgumentWord(id);
     }
 
+    public static ArgumentCoordinate Coordinate(String id){
+        return new ArgumentCoordinate(id);
+    }
+
     public static ArgumentStringArray StringArray(String id) {
         return new ArgumentStringArray(id);
     }
