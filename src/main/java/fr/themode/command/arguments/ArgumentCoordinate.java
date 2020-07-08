@@ -1,7 +1,9 @@
 package fr.themode.command.arguments;
 
-import java.lang.Float;
+import fr.themode.command.coordinate.Coordinate; 
 import java.lang.NumberFormatException;
+import java.lang.Float;
+
 
 /**
  * ArgumentPosition: an Argument that represents a 3D xyz coordinate.
@@ -14,49 +16,25 @@ import java.lang.NumberFormatException;
  * </p> 
  *
  */
-public class ArgumentCoordinate extends Argument<Float[]> {
+public class ArgumentCoordinate extends Argument<Coordinate> {
 
     public static final int FORMAT_ERROR = 1; 
-
-    private coordinatePart x; 
-    private coordinatePart y; 
-    private coordinatePart z; 
 
     public ArgumentCoordinate( String id ){
         super( id, true ); 
     } 
 
     @Override 
-    public int getConditionResult( Float[] coords ){
+    public int getConditionResult( Coordinate coordinate ){
         return SUCCESS; 
     } 
 
     @Override
     /**
-     * parse: parse out the string into 3 coordinate parts. 
+     * parse: parse the string into a coordinate object. 
      */
-    public Float[] parse( String value ){ 
-
-        String[] xyz = value.split(" ");
-        this.x = new coordinatePart(xyz[0]); 
-        this.y = new coordinatePart(xyz[1]); 
-        this.z = new coordinatePart(xyz[2]); 
-
-        return new Float[] { this.x.getCoord(), this.y.getCoord(), this.z.getCoord() }; 
-    }
-
-    /**
-     * getAbsolute: if the coordinate part is
-     * marked as relative, then add to it.
-     * @return Float[] - the new coords after adding the relativity. 
-     */
-    public Float[] getAbsolute( float x, float y, float z ){
-        
-        float newX = this.x.addToRelative( x ); 
-        float newY = this.y.addToRelative( y ); 
-        float newZ = this.z.addToRelative( z ); 
-
-        return new Float[] { newX, newY, newZ };
+    public Coordinate parse( String value ){ 
+        return new Coordinate( value );
     }
 
     /**
@@ -87,7 +65,7 @@ public class ArgumentCoordinate extends Argument<Float[]> {
     /**
      * isCoordinatePart: checks if the string is a valid part of a 3D cordinate. 
      */
-    private boolean isCoordinatePart( String part ){
+    private static boolean isCoordinatePart( String part ){
         
         if( part == null || part.length() == 0 ){
             return false;  
@@ -110,59 +88,6 @@ public class ArgumentCoordinate extends Argument<Float[]> {
                 return true; 
             } catch( NumberFormatException nfe ){
                 return false; 
-            }
-        }
-    } 
-
-    /**
-     * coordinatePart: represents a part of an 3D cartesian coordinate. 
-     */
-    private class coordinatePart { 
-
-        private boolean isRelative = false;  
-        private float coordinatePart = 0; 
-        
-        /** 
-         * coordinatePart: Parses out the part of the positon into a float.   
-         * Allows for the use of the tilda character 
-         * to represent relative position.  
-         *
-         * the position part may utilize tilde notation 
-         * to indicate a relative coordinate. 
-         */
-        public coordinatePart( String value ) {
-
-            if( value.equals("~") ){
-                this.isRelative = true;
-                this.coordinatePart =  0; 
-            } 
-
-            if( value.charAt(0) == '~' ){
-                this.isRelative = true; 
-                value = value.substring( 1 ); 
-            } 
-
-           try {
-               this.coordinatePart = Float.parseFloat( value ); 
-           }  catch( NumberFormatException nfe ){
-
-           }
-        }
-
-        public float getCoord(){ 
-            return this.coordinatePart; 
-        }
-
-        /**
-         * addToRelative: adds to the coordinatePart
-         * if it was marked as relative. 
-         * @param addend - value to add to the coordinate part.  
-         */
-        public float addToRelative( float addend ){
-            if( this.isRelative ){
-                return this.coordinatePart + addend; 
-            } else { 
-                return this.coordinatePart; 
             }
         }
     } 
