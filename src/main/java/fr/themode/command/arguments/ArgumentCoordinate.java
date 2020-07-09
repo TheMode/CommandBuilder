@@ -66,16 +66,17 @@ public class ArgumentCoordinate extends Argument<Coordinate> {
      * isCoordinatePart: checks if the string is a valid part of a 3D cordinate. 
      */
     private static boolean isCoordinatePart( String part ){
-        
+       
         if( part == null || part.length() == 0 ){
             return false;  
         }
 
-        if( part.equals( '~' ) ){
+        if( part.equals( "~" ) ){
             return true;  
         }
         else if( part.charAt(0) == '~' ){
 
+            part = part.substring(1); 
             try{
                 Float.parseFloat(part); 
                 return true; 
